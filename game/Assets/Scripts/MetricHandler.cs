@@ -1,13 +1,20 @@
+using System; // For Action
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using AOT; // For MonoPInvokeCallback
+using System.Runtime.InteropServices; // For DllImport
 
 public class MetricHandler : MonoBehaviour
 {
+  // This is a hacky solution to our file callback needing to use a static func
+  private static MetricHandler instance;
+  public GameObject[] hideOnFileOpen;
   public TMP_Text indexLabel;
+  public TMP_Text dataCountLabel;
   public MetricWaver waverPrefab;
   private List<MetricWaver> wavers = new List<MetricWaver>();
-  private MetricsLoader.Metrics metrics;
+  private static MetricsLoader.Metrics metrics;
   public Transform spawnStart; // Where the wavers should start spawning
   public float spawnDeltaX = 1; // How much offset in the X direction should each waver spawn?
   public float spawnYRot = 180;
@@ -20,12 +27,33 @@ public class MetricHandler : MonoBehaviour
     }
   }
 
+  [DllImport("__Internal")]
+  private static extern void LoadFileFromBrowser(Action<string> fileCallback);
+
   // Start is called before the first frame update
   void Start()
   {
-    metrics = MetricsLoader.ParseMetrics(sampleData);
-    SpawnMetrics();
-    SetDataIndex(0);
+    instance = this;
+    metrics = new MetricsLoader.Metrics("", new List<MetricsLoader.MetricColumn>());
+  }
+
+  // This callback needs to be public + static
+  [MonoPInvokeCallback(typeof(Action<string>))]
+  public static void LoadData(string data)
+  {
+    metrics = MetricsLoader.ParseMetrics(data);
+    instance.SpawnMetrics();
+    instance.SetDataIndex(0);
+  }
+
+  public void OnClickLoadFile()
+  {
+    LoadFileFromBrowser(LoadData);
+  }
+
+  public void OnClickLoadSample()
+  {
+    LoadData(sampleData);
   }
 
   private void SpawnMetrics()
@@ -39,6 +67,12 @@ public class MetricHandler : MonoBehaviour
       wavers.Add(oneWaver);
 
       deltaVector.x += spawnDeltaX;
+    }
+
+    dataCountLabel.text = metrics.DataPoints.Count.ToString("N0");
+    foreach (var obj in hideOnFileOpen)
+    {
+      obj.SetActive(false);
     }
   }
 
