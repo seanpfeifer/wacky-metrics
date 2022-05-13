@@ -297,7 +297,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 343.75, y: 317.5}
+  m_SizeDelta: {x: 343.75, y: 353.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &286606995
 MonoBehaviour:
@@ -801,9 +801,9 @@ RectTransform:
   - {fileID: 1499861304}
   - {fileID: 254882721}
   - {fileID: 1295097044}
-  - {fileID: 286606994}
   - {fileID: 1660410044}
   - {fileID: 1645504515}
+  - {fileID: 286606994}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1152,21 +1152,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<b>Wacky Waving
-
-    Inflatable Metrics</b>
-
-
-    Sean Pfeifer
-
-    Hackathon
-    2022
-
-
-
-    Use top bar to scrub
-
-    through metrics by date.'
+  m_text: "<b>Wacky Waving\nInflatable Metrics</b>\n\nSean Pfeifer\nHackathon 2022\n\nIn
+    Grafana, click on a panel title,\nMore -> Export CSV\r\n Mode: Series as columns\n\nUse
+    top bar to scrub\nthrough metrics by date."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
