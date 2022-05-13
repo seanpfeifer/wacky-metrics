@@ -33,17 +33,17 @@ public class MetricsLoader
   public struct Metrics
   {
     public readonly string[] Headers;
-    public readonly List<MetricColumn> Values;
-    public Metrics(string headerLine, List<MetricColumn> values)
+    public readonly List<MetricColumn> DataPoints;
+    public Metrics(string headerLine, List<MetricColumn> dataPoints)
     {
-      Values = values;
+      DataPoints = dataPoints;
 
       string[] parts = headerLine.Split(';');
       // Ignore parts[0], as it just says "Time"
       Headers = new string[parts.Length - 1];
       for (int i = 1; i < parts.Length; i++)
       {
-        // Need to subtract 1 to get back to zero index for Values assignment
+        // Need to subtract 1 to get back to zero index for assignment
         Headers[i - 1] = parts[i].Trim('"');
       }
     }
