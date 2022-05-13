@@ -11,6 +11,14 @@ public class MetricHandler : MonoBehaviour
   public Transform spawnStart; // Where the wavers should start spawning
   public float spawnDeltaX = 1; // How much offset in the X direction should each waver spawn?
   public float spawnYRot = 180;
+  // The max index viewable
+  public int maxDataIndex
+  {
+    get
+    {
+      return metrics.DataPoints.Count - 1;
+    }
+  }
 
   // Start is called before the first frame update
   void Start()
@@ -36,6 +44,7 @@ public class MetricHandler : MonoBehaviour
 
   public void SetDataIndex(int dataIndex)
   {
+    dataIndex = Mathf.Clamp(dataIndex, 0, maxDataIndex);
     indexLabel.text = metrics.DataPoints[dataIndex].Label;
 
     for (int col = 0; col < wavers.Count; col++)
