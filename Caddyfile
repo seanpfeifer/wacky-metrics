@@ -1,0 +1,18 @@
+# Intentionally allow both http & https (auto forwarding) by not specifying here
+localhost {
+  @zippable {
+    # This is all default
+    header Content-Type text/*
+    header Content-Type application/json*
+    header Content-Type application/javascript*
+    header Content-Type application/xhtml+xml*
+    header Content-Type application/atom+xml*
+    header Content-Type application/rss+xml*
+    header Content-Type image/svg+xml*
+    header Content-Type image/svg+xml*
+    # Defaults end here
+  }
+  root * /usr/share/caddy
+  encode @zippable gzip zstd
+  file_server
+}
